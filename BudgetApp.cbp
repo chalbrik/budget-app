@@ -32,6 +32,26 @@
 			<Add option="-Wall" />
 			<Add option="-fexceptions" />
 		</Compiler>
+		<Unit filename="BudgetApp.cpp" />
+		<Unit filename="BudgetApp.h" />
+		<Unit filename="BudgetManager.cpp" />
+		<Unit filename="BudgetManager.h" />
+		<Unit filename="Expenses.cpp" />
+		<Unit filename="Expenses.h" />
+		<Unit filename="HelpMethods.cpp" />
+		<Unit filename="HelpMethods.h" />
+		<Unit filename="Incomes.cpp" />
+		<Unit filename="Incomes.h" />
+		<Unit filename="TransactionFile.cpp" />
+		<Unit filename="TransactionFile.h" />
+		<Unit filename="User.cpp" />
+		<Unit filename="User.h" />
+		<Unit filename="UserFile.cpp" />
+		<Unit filename="UserFile.h" />
+		<Unit filename="UserManager.cpp" />
+		<Unit filename="UserManager.h" />
+		<Unit filename="XmlFile.cpp" />
+		<Unit filename="XmlFile.h" />
 		<Unit filename="main.cpp" />
 		<Extensions />
 	</Project>
