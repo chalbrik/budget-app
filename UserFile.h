@@ -10,7 +10,7 @@ class UserFile : XmlFile {
 
 public:
 
-    UserFile() {};
+    UserFile(string userFileName) : XmlFile(userFileName) {};
 
     addUserToFile();
     loadUsersFromFile();
