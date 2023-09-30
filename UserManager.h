@@ -16,7 +16,11 @@ class UserManager {
 
 public:
 
-    UserManager(string userFileName) : userFile(userFileName) {};
+    UserManager(string userFileName) : userFile(userFileName) {
+
+    userFile.loadUsersFromFile();
+
+    };
 
     void userRegistration();
     void userLogIn();

@@ -5,7 +5,7 @@ using namespace std;
 
 int main()
 {
-    BudgetApp budgetApp("Users.txt");
+    BudgetApp budgetApp("Users.xml");
 
     budgetApp.userRegistration();
 

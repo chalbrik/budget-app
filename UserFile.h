@@ -3,6 +3,7 @@
 
 #include <iostream>
 #include "XmlFile.h"
+#include "User.h"
 
 using namespace std;
 
@@ -12,8 +13,8 @@ public:
 
     UserFile(string userFileName) : XmlFile(userFileName) {};
 
-    addUserToFile();
-    loadUsersFromFile();
+    void addUserToFile(User user);
+    void loadUsersFromFile();
 
 };
 
