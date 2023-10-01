@@ -9,7 +9,7 @@ class Transactions{
 
     int transactionId;
     int userId;
-    string date;
+    int date;
     string item;
     string amount;
 
@@ -17,13 +17,13 @@ public:
 
     int getTransactionId();
     int getUserId();
-    string getDate();
+    int getDate();
     string getItem();
     string getAmount();
 
     void setTransactionId(int newTransactionId);
     void setUserId(int newUserId);
-    void setDate(string newDate);
+    void setDate(int newDate);
     void setItem(string newItem);
     void setAmount(string newAmount);
 

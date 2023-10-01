@@ -10,7 +10,7 @@ class TransactionFile : XmlFile {
 
 public:
 
-    TransactionFile();
+    TransactionFile(string transactionFileName) : XmlFile(transactionFileName){};
 
     addOperationToFile();
     loadOperationFromFile();

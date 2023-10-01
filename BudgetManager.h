@@ -2,8 +2,11 @@
 #define BUDGETMANAGER_H
 
 #include <iostream>
+#include <vector>
+#include <ctime>
 #include "TransactionFile.h"
 #include "Transactions.h"
+#include "HelpMethods.h"
 
 
 using namespace std;
@@ -16,9 +19,12 @@ class BudgetManager{
     TransactionFile expensesFile;
     vector <Transactions> expenses;
 
+    int getCurrentDate();
+
+
 public:
 
-    BudgetManager();
+    BudgetManager(string incomesFileName, string expensesFileName) : incomeFile(incomesFileName), expensesFile(expensesFileName) {};
     void addIncome();
     void addExpense();
     void displayCurrentMonthBalance();

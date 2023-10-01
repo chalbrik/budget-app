@@ -6,7 +6,7 @@ int Transactions::getTransactionId() {
 int Transactions::getUserId() {
     return userId;
 }
-string Transactions::getDate() {
+int Transactions::getDate() {
     return date;
 }
 string Transactions::getItem() {
@@ -24,7 +24,7 @@ void Transactions::setUserId(int newUserId)
 {
     userId = newUserId;
 }
-void Transactions::setDate(string newDate)
+void Transactions::setDate(int newDate)
 {
     date = newDate;
 }
