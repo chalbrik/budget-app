@@ -1,7 +1,6 @@
 #include "UserFile.h"
 
-void UserFile::addUserToFile(User user)
-{
+void UserFile::addUserToFile(User user) {
     xmlFile.AddElem("USER");
     xmlFile.IntoElem();
     xmlFile.AddElem("USERID", user.getUserId());
@@ -13,16 +12,14 @@ void UserFile::addUserToFile(User user)
     saveXmlFile();
 }
 
-void UserFile::loadUsersFromFile(vector <User> &users)
-{
+void UserFile::loadUsersFromFile(vector <User> &users) {
     User user;
 
     loadXmlFile();
 
-    while(xmlFile.FindElem("USER"))
-    {
+    while(xmlFile.FindElem("USER")) {
         xmlFile.FindChildElem("USERID");
-        user.setUserId(atoi(MCD_2PCSZ(xmlFile.GetChildData()))); // mam nadzieje ze zadziala
+        user.setUserId(atoi(MCD_2PCSZ(xmlFile.GetChildData())));
         xmlFile.FindChildElem("LOGIN");
         user.setLogin(xmlFile.GetChildData());
         xmlFile.FindChildElem("PASSWORD");
@@ -34,4 +31,21 @@ void UserFile::loadUsersFromFile(vector <User> &users)
 
         users.push_back(user);
     }
+}
+
+void UserFile::changeUsersPassword(int loggedUsersId, string newUsersPassword) {
+    string strLoggedUsersId = "";
+
+    strLoggedUsersId = HelpMethods::convertIntToString(loggedUsersId);
+    loadXmlFile();
+
+    while(xmlFile.FindElem("USER")) {
+        xmlFile.FindChildElem("USERID");
+        if(MCD_STR (xmlFile.GetChildData()) == strLoggedUsersId) {
+            xmlFile.FindChildElem("PASSWORD");
+            xmlFile.SetChildData(newUsersPassword);
+        }
+    }
+
+    saveXmlFile();
 }

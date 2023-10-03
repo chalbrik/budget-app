@@ -6,6 +6,7 @@
 #include <vector>
 #include "XmlFile.h"
 #include "User.h"
+#include "HelpMethods.h"
 
 using namespace std;
 
@@ -17,6 +18,8 @@ public:
 
     void addUserToFile(User user);
     void loadUsersFromFile(vector <User> &users);
+
+    void changeUsersPassword(int loggedUsersId, string newUsersPassword);
 
 };
 

@@ -33,8 +33,8 @@ public:
 
     void userRegistration();
     void userLogIn();
-    void changePassword();
-    void LogOut();
+    void changeUsersPassword();
+    void userLogOut();
 
     int getLoggedUsersId();
 

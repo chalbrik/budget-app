@@ -43,13 +43,20 @@ void BudgetApp::userLogIn() {
     }
 }
 
-void BudgetApp::addIncome()
-{
+void BudgetApp::addIncome() {
     budgetManager->addIncome();
 }
 
-void BudgetApp::addExpense()
-{
+void BudgetApp::addExpense() {
     budgetManager->addExpense();
+}
+
+void BudgetApp::changeUsersPassword()
+{
+    userManager.changeUsersPassword();
+}
+
+void BudgetApp::userLogOut() {
+    userManager.userLogOut();
 }
 

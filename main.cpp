@@ -49,7 +49,11 @@ int main() {
                 break;
 
             case '4':
-                //budgetApp.LogOut();
+                budgetApp.changeUsersPassword();
+                break;
+
+            case '5':
+                budgetApp.userLogOut();
                 break;
             }
         }
