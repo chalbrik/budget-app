@@ -1,8 +1,8 @@
 #include "TransactionFile.h"
 
-void TransactionFile::addOperationToFile(Transactions transaction)
+void TransactionFile::addOperationToFile(string transactionTag, Transactions transaction)
 {
-    xmlFile.AddElem("INCOME");
+    xmlFile.AddElem(transactionTag);
     xmlFile.IntoElem();
     xmlFile.AddElem("INCOMEID", transaction.getTransactionId());
     xmlFile.AddElem("USERID", transaction.getUserId());

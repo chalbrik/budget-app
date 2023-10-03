@@ -48,3 +48,8 @@ void BudgetApp::addIncome()
     budgetManager->addIncome();
 }
 
+void BudgetApp::addExpense()
+{
+    budgetManager->addExpense();
+}
+

@@ -13,7 +13,7 @@ public:
 
     TransactionFile(string transactionFileName) : XmlFile(transactionFileName){};
 
-    void addOperationToFile(Transactions transaction);
+    void addOperationToFile(string transactionName, Transactions transaction);
     void loadOperationFromFile();
 
 };

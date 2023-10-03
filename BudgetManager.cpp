@@ -2,34 +2,40 @@
 
 void BudgetManager::addIncome() {
 
-    Transactions income;
+    addTransaction("Income", "INCOME", incomes, incomeFile);
+}
 
-    int incomeId = 0;
+void BudgetManager::addExpense() {
+
+    addTransaction("Expense", "EXPENSE", expenses, expensesFile);
+}
+
+
+// private
+
+void BudgetManager::addTransaction(string transactionName, string transactionTag, vector <Transactions> transactions, TransactionFile transactionFile) {
+    Transactions transaction;
+
+    int transactionId = 0;
     int dateOfATransaction = 0;
     string item = "";
     double amount = 0;
 
-    dateOfATransaction = addTransactionsDate("income");
-
-    item = addTransactionsCategory();
-
+    dateOfATransaction = addTransactionsDate(transactionName);
+    item = addTransactionsCategory(transactionTag);
     amount = addTransactionsAmount();
 
+    transaction.setUserId(LOGGED_USER_ID);
 
+    transactions.size() == 0 ? transaction.setTransactionId(1) : transaction.setTransactionId(transactions.back().getTransactionId() + 1); //setting transactionsId
+    transaction.setDate(dateOfATransaction);
+    transaction.setItem(item);
+    transaction.setAmount(amount);
 
-    income.setTransactionId(LOGGED_USER_ID);
-    incomes.size() == 0 ? income.setTransactionId(1) : income.setTransactionId(incomes.back().getTransactionId() + 1); //setting transactionsId
-    income.setDate(dateOfATransaction);
-    income.setItem(item);
-    income.setAmount(amount);
+    transactions.push_back(transaction);
 
-    incomes.push_back(income);
-
-    incomeFile.addOperationToFile(income);
-
+    transactionFile.addOperationToFile(transactionTag, transaction);
 }
-
-// private
 
 int BudgetManager::addTransactionsDate(string transactionType) {
     char chooseOption;
@@ -51,30 +57,51 @@ int BudgetManager::addTransactionsDate(string transactionType) {
     }
 }
 
-string BudgetManager::addTransactionsCategory() {
+string BudgetManager::addTransactionsCategory(string transactionTag) {
 
     char chooseOption;
     string item = "";
 
     cout << "Pick category of your transaction." << endl;
 
-    cout << "1 - salary" << endl;
-    cout << "2 - sale" << endl;
-    cout << "3 - repayment" << endl;
-    //trzeba bedzie rozbudowac
+    if(transactionTag == "INCOME") {
+        cout << "1 - salary" << endl;
+        cout << "2 - sale" << endl;
+        cout << "3 - repayment" << endl;
 
-    chooseOption = HelpMethods::getCharacter();
+        chooseOption = HelpMethods::getCharacter();
 
-    switch(chooseOption) {
-    case '1':
-        item = "Salary";
-        break;
-    case '2':
-        item = "Sale";
-        break;
-    case 3:
-        item = "Repayment";
-        break;
+        switch(chooseOption) {
+        case '1':
+            item = "Salary";
+            break;
+        case '2':
+            item = "Sale";
+            break;
+        case '3':
+            item = "Repayment";
+            break;
+        }
+
+    } else if(transactionTag == "EXPENSE") {
+
+        cout << "1 - Food" << endl;
+        cout << "2 - Transportation" << endl;
+        cout << "3 - Rent" << endl;
+
+        chooseOption = HelpMethods::getCharacter();
+
+        switch(chooseOption) {
+        case '1':
+            item = "Food";
+            break;
+        case '2':
+            item = "Transportation";
+            break;
+        case '3':
+            item = "Rent";
+            break;
+        }
     }
 
     return item;

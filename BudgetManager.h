@@ -22,8 +22,9 @@ class BudgetManager{
     TransactionFile expensesFile;
     vector <Transactions> expenses;
 
+    void addTransaction(string transactionName, string transactionTag, vector <Transactions> transactions, TransactionFile transactionFile);
     int addTransactionsDate(string transactionType);
-    string addTransactionsCategory();
+    string addTransactionsCategory(string transactionTag);
     double addTransactionsAmount();
 
     int getCurrentDate();

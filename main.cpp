@@ -40,7 +40,7 @@ int main() {
 
             case '2':
                 system("cls");
-                //budgetApp.addExpense();
+                budgetApp.addExpense();
                 break;
 
             case '3':
