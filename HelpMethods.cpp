@@ -39,3 +39,21 @@ int HelpMethods::convertStringToInt(string number) {
     return numberInt;
 }
 
+double HelpMethods::convertStringToDouble(string number)
+{
+    double numberDouble;
+    numberDouble = stod(number);
+    return numberDouble;
+}
+
+void HelpMethods::changeCommaToDot(string input)
+{
+    for(size_t i = 0; i < input.size(); i++)
+    {
+        if(input[i] == ',')
+        {
+           input.replace(i, 1, ".");
+        }
+    }
+}
+

@@ -19,7 +19,10 @@ class BudgetManager{
     TransactionFile expensesFile;
     vector <Transactions> expenses;
 
+    int addTransactionsDate(string transactionType);
     int getCurrentDate();
+    int getSpecificDateFromUser();
+    bool checkIfADateFitInRequiredPeriod(string date);
 
 
 public:

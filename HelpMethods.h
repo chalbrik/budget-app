@@ -18,9 +18,9 @@ public:
 
     static int convertStringToInt(string number);
 
+    static double convertStringToDouble(string number);
 
-
-    void changeCommaToDot();
+    static void changeCommaToDot(string input);
 
 
 };
