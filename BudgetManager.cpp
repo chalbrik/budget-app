@@ -2,57 +2,30 @@
 
 void BudgetManager::addIncome() {
 
-    char chooseOption;
+    Transactions income;
 
+    int incomeId = 0;
     int dateOfATransaction = 0;
     string item = "";
-    string strAmount = "";
     double amount = 0;
-
 
     dateOfATransaction = addTransactionsDate("income");
 
-    cout << "Pick category of your transaction." << endl;
+    item = addTransactionsCategory();
 
-    cout << "1 - salary" << endl;
-    cout << "2 - sale" << endl;
-    cout << "3 - repayment" << endl;
-
-    chooseOption = HelpMethods::getCharacter();
-
-    switch(chooseOption) {
-    case '1':
-        item = "Salary";
-        break;
-    case '2':
-        item = "Sale";
-        break;
-    case 3:
-        item = "Repayment";
-        break;
-    }
-
-    cout << "What is an amount of your transaction?" << endl;
-
-    strAmount = HelpMethods::readLine();
-    HelpMethods::changeCommaToDot(strAmount);
-    amount = HelpMethods::convertStringToDouble(strAmount);
+    amount = addTransactionsAmount();
 
 
 
+    income.setTransactionId(LOGGED_USER_ID);
+    incomes.size() == 0 ? income.setTransactionId(1) : income.setTransactionId(incomes.back().getTransactionId() + 1); //setting transactionsId
+    income.setDate(dateOfATransaction);
+    income.setItem(item);
+    income.setAmount(amount);
 
+    incomes.push_back(income);
 
-
-
-    //dodaj obiekt transaction do vektora i przypisz incomeId
-    //dodaj obiekt transaction do vektora i przypisz userId
-    //dodaj obiekt transaction do vektora i przypisz date
-    //dodaj obiekt transaction do vektora i przypisz item
-    //dodaj obiekt transaction do vektora i przypisz amount
-
-
-
-
+    incomeFile.addOperationToFile(income);
 
 }
 
@@ -76,6 +49,49 @@ int BudgetManager::addTransactionsDate(string transactionType) {
         dateOfATransaction = getSpecificDateFromUser();
         break;
     }
+}
+
+string BudgetManager::addTransactionsCategory() {
+
+    char chooseOption;
+    string item = "";
+
+    cout << "Pick category of your transaction." << endl;
+
+    cout << "1 - salary" << endl;
+    cout << "2 - sale" << endl;
+    cout << "3 - repayment" << endl;
+    //trzeba bedzie rozbudowac
+
+    chooseOption = HelpMethods::getCharacter();
+
+    switch(chooseOption) {
+    case '1':
+        item = "Salary";
+        break;
+    case '2':
+        item = "Sale";
+        break;
+    case 3:
+        item = "Repayment";
+        break;
+    }
+
+    return item;
+}
+
+double BudgetManager::addTransactionsAmount() {
+    string strAmount = "";
+    double amount = 0;
+
+    cout << "What is an amount of your transaction?" << endl;
+
+    strAmount = HelpMethods::readLine();
+    HelpMethods::changeCommaToDot(strAmount);
+    amount = HelpMethods::convertStringToDouble(strAmount);
+
+    return amount;
+
 }
 
 int BudgetManager::getCurrentDate() {

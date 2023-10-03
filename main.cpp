@@ -3,7 +3,7 @@
 
 using namespace std;
 
-int main_inactive() {
+int main() {
     BudgetApp budgetApp("Users.xml");
 
     while(true) {
@@ -58,7 +58,7 @@ int main_inactive() {
     return 0;
 }
 
-int main() {
+int main_inactive() {
     BudgetApp budgetApp("Users.xml");
 
 

@@ -12,7 +12,7 @@ int Transactions::getDate() {
 string Transactions::getItem() {
     return item;
 }
-string Transactions::getAmount() {
+double Transactions::getAmount() {
     return amount;
 }
 
@@ -32,7 +32,7 @@ void Transactions::setItem(string newItem)
 {
     item = newItem;
 }
-void Transactions::setAmount(string newAmount)
+void Transactions::setAmount(double newAmount)
 {
     amount = newAmount;
 }

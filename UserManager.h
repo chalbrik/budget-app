@@ -36,6 +36,8 @@ public:
     void changePassword();
     void LogOut();
 
+    int getLoggedUsersId();
+
 };
 
 

@@ -11,7 +11,7 @@ class Transactions{
     int userId;
     int date;
     string item;
-    string amount;
+    double amount;
 
 public:
 
@@ -19,13 +19,13 @@ public:
     int getUserId();
     int getDate();
     string getItem();
-    string getAmount();
+    double getAmount();
 
     void setTransactionId(int newTransactionId);
     void setUserId(int newUserId);
     void setDate(int newDate);
     void setItem(string newItem);
-    void setAmount(string newAmount);
+    void setAmount(double newAmount);
 
 
 };

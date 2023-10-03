@@ -8,8 +8,7 @@ bool UserManager::checkIfUserIsLogged() {
     }
 }
 
-void UserManager::displayUsersMenu()
-{
+void UserManager::displayUsersMenu() {
     cout << "You are logged in" << endl;
     cout << "1 - Add income" << endl;
     cout << "2 - Add expense" << endl;
@@ -21,8 +20,7 @@ void UserManager::displayUsersMenu()
     chosenOptionFromUsersMenu = HelpMethods::getCharacter();
 }
 
-char UserManager::getChosenOptionFromUsersMenu()
-{
+char UserManager::getChosenOptionFromUsersMenu() {
     return chosenOptionFromUsersMenu;
 }
 
@@ -72,4 +70,8 @@ void UserManager::userLogIn() {
     return;
 
     cout << "This login doesn't exist" << endl;
+}
+
+int UserManager::getLoggedUsersId() {
+    return loggedUsersId;
 }
