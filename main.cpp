@@ -45,7 +45,7 @@ int main() {
 
             case '3':
                 system("cls");
-                //budgetApp.checkBalanece();
+                budgetApp.displayBalance();
                 break;
 
             case '4':
@@ -65,8 +65,8 @@ int main() {
 int main_inactive() {
     BudgetApp budgetApp("Users.xml");
 
-
-    budgetApp.addIncome();
+    budgetApp.userLogIn();
+    budgetApp.displayBalance();
 
 
     return 0;

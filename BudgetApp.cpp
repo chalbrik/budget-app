@@ -51,6 +51,11 @@ void BudgetApp::addExpense() {
     budgetManager->addExpense();
 }
 
+void BudgetApp::displayBalance()
+{
+    budgetManager->displayBalance();
+}
+
 void BudgetApp::changeUsersPassword()
 {
     userManager.changeUsersPassword();

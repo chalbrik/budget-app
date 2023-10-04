@@ -34,9 +34,17 @@ class BudgetManager{
 
 public:
 
-    BudgetManager(string incomesFileName, string expensesFileName, int loggedUserId) : incomeFile(incomesFileName), expensesFile(expensesFileName), LOGGED_USER_ID(loggedUserId) {};
+    BudgetManager(string incomesFileName, string expensesFileName, int loggedUserId) : incomeFile(incomesFileName), expensesFile(expensesFileName), LOGGED_USER_ID(loggedUserId) {
+
+    incomeFile.loadOperationFromFile(incomes);
+
+    expensesFile.loadOperationFromFile(expenses);
+    };
     void addIncome();
     void addExpense();
+
+    void displayBalance();
+
     void displayCurrentMonthBalance();
     void displayPreviousMonthBalance();
     void displaySpecificPeriodBalance();

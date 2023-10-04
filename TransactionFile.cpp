@@ -1,14 +1,59 @@
 #include "TransactionFile.h"
 
-void TransactionFile::addOperationToFile(string transactionTag, Transactions transaction)
-{
+void TransactionFile::addOperationToFile(string transactionTag, Transactions transaction) {
     xmlFile.AddElem(transactionTag);
     xmlFile.IntoElem();
-    xmlFile.AddElem("INCOMEID", transaction.getTransactionId());
+    xmlFile.AddElem(transactionTag + "ID", transaction.getTransactionId());
     xmlFile.AddElem("USERID", transaction.getUserId());
     xmlFile.AddElem("DATE", transaction.getDate());
     xmlFile.AddElem("ITEM", transaction.getItem());
     xmlFile.AddElem("AMOUNT", transaction.getAmount());
     xmlFile.OutOfElem();
     saveXmlFile();
+}
+
+void TransactionFile::loadOperationFromFile(vector <Transactions> &transactions) {
+    Transactions transaction;
+
+    loadXmlFile();
+
+    if(FILE_NAME == "Incomes.xml") {
+        while(xmlFile.FindElem("INCOME")) {
+             xmlFile.FindChildElem("INCOMEID");
+            transaction.setTransactionId(atoi(MCD_2PCSZ(xmlFile.GetChildData())));
+            xmlFile.FindChildElem("USERID");
+            transaction.setUserId(atoi(MCD_2PCSZ (xmlFile.GetChildData())));
+            xmlFile.FindChildElem("DATE");
+            transaction.setDate(atoi(MCD_2PCSZ (xmlFile.GetChildData())));
+            xmlFile.FindChildElem("ITEM");
+            transaction.setItem(xmlFile.GetChildData());
+            xmlFile.FindChildElem("AMOUNT");
+            transaction.setAmount(atoi(MCD_2PCSZ (xmlFile.GetChildData())));
+
+            transactions.push_back(transaction);
+        }
+    } else if(FILE_NAME == "Expenses.xml")
+    {
+        while(xmlFile.FindElem("EXPENSE")) {
+            xmlFile.FindChildElem("EXPENSEID");
+            transaction.setTransactionId(atoi(MCD_2PCSZ(xmlFile.GetChildData())));
+            xmlFile.FindChildElem("USERID");
+            transaction.setUserId(atoi(MCD_2PCSZ (xmlFile.GetChildData())));
+            xmlFile.FindChildElem("DATE");
+            transaction.setDate(atoi(MCD_2PCSZ (xmlFile.GetChildData())));
+            xmlFile.FindChildElem("ITEM");
+            transaction.setItem(xmlFile.GetChildData());
+            xmlFile.FindChildElem("AMOUNT");
+            transaction.setAmount(atoi(MCD_2PCSZ (xmlFile.GetChildData())));
+
+            transactions.push_back(transaction);
+        }
+    }
+
+    void setTransactionId(int newTransactionId);
+    void setUserId(int newUserId);
+    void setDate(int newDate);
+    void setItem(string newItem);
+    void setAmount(double newAmount);
+
 }

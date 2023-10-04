@@ -10,6 +10,24 @@ void BudgetManager::addExpense() {
     addTransaction("Expense", "EXPENSE", expenses, expensesFile);
 }
 
+void BudgetManager::displayBalance()
+{
+    //showIncomesFromOldestToLatest();
+
+    for(vector <Transactions>::iterator itr = incomes.begin(); itr != incomes.end(); itr++)
+    {
+        cout << "Transaction ID: " << itr->getTransactionId() << endl;
+        cout << "User ID: " << itr->getUserId() << endl;
+        cout << "Date: " << itr->getDate() << endl;
+        cout << "Category: " << itr->getItem() << endl;
+        cout << "Amount: " << itr->getAmount() << endl;
+
+        system("pause");
+
+    }
+
+}
+
 
 // private
 
