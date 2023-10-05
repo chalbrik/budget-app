@@ -10,21 +10,46 @@ void BudgetManager::addExpense() {
     addTransaction("Expense", "EXPENSE", expenses, expensesFile);
 }
 
-void BudgetManager::displayBalance()
-{
-    //showIncomesFromOldestToLatest();
+void BudgetManager::displayBalanceMenu() {
+    char chooseOption;
 
-    for(vector <Transactions>::iterator itr = incomes.begin(); itr != incomes.end(); itr++)
-    {
-        cout << "Transaction ID: " << itr->getTransactionId() << endl;
-        cout << "User ID: " << itr->getUserId() << endl;
-        cout << "Date: " << itr->getDate() << endl;
-        cout << "Category: " << itr->getItem() << endl;
-        cout << "Amount: " << itr->getAmount() << endl;
+    system("cls");
 
-        system("pause");
+    cout << "DISPLAY BALANCE ACCOUNT" << endl << endl;
+    cout << "1 - Display current month balance" << endl;
+    cout << "2 - Display previous month balance" << endl;
+    cout << "3 - Choose period to display balance" << endl;
 
+    chooseOption = HelpMethods::getCharacter();
+
+    switch(chooseOption) {
+    case '1':
+        displayCurrentMonthBalance();
+        break;
+    case '2':
+        //displayPreviousMonthBalance();
+        break;
+    case '3':
+        //displaySpecificPeriodBalance();
+        break;
     }
+
+
+}
+
+void BudgetManager::displayCurrentMonthBalance() {
+
+    int firstDayOfCurrentMonthDate = 0;
+    int currentDate = 0;
+
+    currentDate = getCurrentDate();
+
+    firstDayOfCurrentMonthDate = getFirstDayOfCurrentMonthDate();
+
+    cout << firstDayOfCurrentMonthDate << endl;
+    system("pause");
+
+    displayBalance(firstDayOfCurrentMonthDate, currentDate);
 
 }
 
@@ -169,6 +194,32 @@ int BudgetManager::getCurrentDate() {
 
 }
 
+int BudgetManager::getFirstDayOfCurrentMonthDate() {
+    string currentYear = "";
+    string currentMonth = "";
+    string firstDayOfCurrentMonth = "";
+    string firstDayOfCurrentMonthStrDate = "";
+    int firstDayOfCurrentMonthIntDate = 0;
+
+    time_t currentTime;
+    time(&currentTime);
+    tm *tmLocal = localtime(&currentTime);
+
+    currentYear = HelpMethods::convertIntToString(tmLocal->tm_year + 1900);
+    currentMonth = HelpMethods::convertIntToString(tmLocal->tm_mon + 1);
+    firstDayOfCurrentMonth = "01";
+
+    if(currentMonth.size() == 1) {
+        currentMonth = "0" + currentMonth;
+    }
+
+    firstDayOfCurrentMonthStrDate = currentYear + currentMonth + firstDayOfCurrentMonth;
+
+    firstDayOfCurrentMonthIntDate = HelpMethods::convertStringToInt(firstDayOfCurrentMonthStrDate);
+
+    return firstDayOfCurrentMonthIntDate;
+}
+
 int BudgetManager::getSpecificDateFromUser() {
     string strDateOfATransactionFromUser = "";
     int dateOfATransactionFromUser = 0;
@@ -239,3 +290,70 @@ bool BudgetManager::checkIfADateFitInRequiredPeriod(string date) {
         return true;
     }
 }
+
+void BudgetManager::displayBalance(int beginingDate, int endDate) {
+
+    vector <Transactions> filteredIncomes;
+    vector <Transactions> filteredExpenses;
+
+    double sumOfIncomes = 0;
+    double sumOfExpenses = 0;
+    double incomeExpensesDifference = 0;
+
+    filteredIncomes = filterTransactions(incomes, beginingDate, endDate);
+    showTransactionsFromOldestToLatest(filteredIncomes, beginingDate, endDate);
+    sumOfIncomes = showSumOfTransactions(filteredIncomes);
+    cout << "Total incomes amount: " << sumOfIncomes << " pln" << endl << endl;
+
+    filteredExpenses = filterTransactions(expenses, beginingDate, endDate);
+    showTransactionsFromOldestToLatest(filteredExpenses, beginingDate, endDate);
+    sumOfExpenses = showSumOfTransactions(filteredExpenses);
+    cout << "Total expenses amount: " << sumOfExpenses << " pln" << endl << endl;
+
+    incomeExpensesDifference = sumOfIncomes - sumOfExpenses;
+
+    incomeExpensesDifference >= 0 ?  cout << "You have " << incomeExpensesDifference << " pln savings on your account." << endl : cout << "You have " << incomeExpensesDifference << " pln debt on your account." << endl;
+
+    system("pause");
+}
+
+void BudgetManager::showTransactionsFromOldestToLatest(vector <Transactions> transactions, int beginingDate, int endDate) {
+
+    sort(transactions.begin(), transactions.end());
+
+    for(vector <Transactions>::iterator itr = transactions.begin(); itr != transactions.end(); itr++) {
+        cout << "Income ID: " << itr->getTransactionId() << endl;
+        cout << "User ID: " << itr->getUserId() << endl;
+        cout << "Date: " << itr->getDate() << endl;
+        cout << "Category: " << itr->getItem() << endl;
+        cout << "Amount: " << itr->getAmount() << endl;
+        cout << endl;
+    }
+}
+
+double BudgetManager::showSumOfTransactions(vector <Transactions> transactions) {
+    double sumOfAmount = 0;
+
+    for(vector <Transactions>::iterator itr = transactions.begin(); itr != transactions.end(); itr++) {
+        sumOfAmount = sumOfAmount + itr->getAmount();
+    }
+
+    return sumOfAmount;
+}
+
+vector <Transactions> BudgetManager::filterTransactions(vector <Transactions> transactions, int beginingDate, int endDate) {
+    vector <Transactions> filteredTransactions;
+
+    for(vector <Transactions>::iterator itr = transactions.begin(); itr != transactions.end(); itr++) {
+
+        if(itr->getDate() >= beginingDate && itr->getDate() <= endDate) {
+            filteredTransactions.push_back(*itr);
+        }
+    }
+
+    return filteredTransactions;
+}
+
+
+
+
