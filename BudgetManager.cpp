@@ -27,10 +27,10 @@ void BudgetManager::displayBalanceMenu() {
         displayCurrentMonthBalance();
         break;
     case '2':
-        //displayPreviousMonthBalance();
+        displayPreviousMonthBalance();
         break;
     case '3':
-        //displaySpecificPeriodBalance();
+        displaySpecificPeriodBalance();
         break;
     }
 
@@ -42,14 +42,37 @@ void BudgetManager::displayCurrentMonthBalance() {
     int firstDayOfCurrentMonthDate = 0;
     int currentDate = 0;
 
-    currentDate = getCurrentDate();
+    currentDate = getDate("CURRENT", "TODAY");
 
-    firstDayOfCurrentMonthDate = getFirstDayOfCurrentMonthDate();
-
-    cout << firstDayOfCurrentMonthDate << endl;
-    system("pause");
+    firstDayOfCurrentMonthDate = getDate("CURRENT", "FIRST");
 
     displayBalance(firstDayOfCurrentMonthDate, currentDate);
+
+}
+
+void BudgetManager::displayPreviousMonthBalance() {
+
+    int firstDayOfPreviousMonthDate = 0;
+    int lastDayOfPreviousMonthDate = 0;
+
+    firstDayOfPreviousMonthDate = getDate("PREVIOUS", "FIRST");
+    lastDayOfPreviousMonthDate = getDate("PREVIOUS", "LAST");
+
+    displayBalance(firstDayOfPreviousMonthDate, lastDayOfPreviousMonthDate);
+
+}
+
+void BudgetManager::displaySpecificPeriodBalance() {
+
+    int dateBeginning = 0;
+    int dateEnd = 0;
+
+    cout << "Insert beginning of desired balance period." << endl;
+    dateBeginning = getSpecificDateFromUser();
+    cout << "Insert end of desired balance period." << endl;
+    dateEnd = getSpecificDateFromUser();
+
+    displayBalance(dateBeginning, dateEnd);
 
 }
 
@@ -92,7 +115,7 @@ int BudgetManager::addTransactionsDate(string transactionType) {
 
     switch(chooseOption) {
     case '1':
-        dateOfATransaction = getCurrentDate();
+        dateOfATransaction = getDate("CURRENT", "TODAY");
         break;
     case '2':
         dateOfATransaction = getSpecificDateFromUser();
@@ -164,33 +187,64 @@ double BudgetManager::addTransactionsAmount() {
 
 }
 
-int BudgetManager::getCurrentDate() {
-    string currentYear = "";
-    string currentMonth = "";
-    string currentDay = "";
-    string currentStrDate = "";
-    int currentIntDate = 0;
+int BudgetManager::getDate(string monthTag, string dayTag) {
+    string year = "";
+    string month = "";
+    string day = "";
+    string strDate = "";
+    int intDate = 0;
 
     time_t currentTime;
     time(&currentTime);
     tm *tmLocal = localtime(&currentTime);
 
-    currentYear = HelpMethods::convertIntToString(tmLocal->tm_year + 1900);
-    currentMonth = HelpMethods::convertIntToString(tmLocal->tm_mon + 1);
-    currentDay = HelpMethods::convertIntToString(tmLocal->tm_mday);
+    if(monthTag == "CURRENT") {
+        year = HelpMethods::convertIntToString(tmLocal->tm_year + 1900);
+        month = HelpMethods::convertIntToString(tmLocal->tm_mon + 1);
+    } else if (monthTag == "PREVIOUS" && dayTag == "FIRST") {
 
-    if(currentMonth.size() == 1) {
-        currentMonth = "0" + currentMonth;
+        tmLocal->tm_mon -= 1;
+
+        if(tmLocal->tm_mon == 0) {
+            tmLocal->tm_mon = 12;
+            tmLocal->tm_year -= 1;
+        }
+        year = HelpMethods::convertIntToString(tmLocal->tm_year + 1900);
+        month = HelpMethods::convertIntToString(tmLocal->tm_mon + 1);
     }
 
-    if(currentDay.size() == 1) {
-        currentDay =  "0" + currentDay;
+    if(monthTag == "CURRENT" && dayTag == "TODAY") {
+        day = HelpMethods::convertIntToString(tmLocal->tm_mday);
+    } else if((monthTag == "CURRENT" || monthTag == "PREVIOUS") && dayTag == "FIRST") {
+        day = "01";
+    } else if(monthTag == "PREVIOUS" && dayTag == "LAST") {
+
+        if(tmLocal->tm_mon == 0) {
+            tmLocal->tm_mon = 12;
+            tmLocal->tm_year -= 1;
+        }
+
+        tmLocal->tm_mday = 0;
+
+        mktime(tmLocal);
+
+        year = HelpMethods::convertIntToString(tmLocal->tm_year + 1900);
+        month =  month = HelpMethods::convertIntToString(tmLocal->tm_mon + 1);
+        day = HelpMethods::convertIntToString(tmLocal->tm_mday);
     }
 
-    currentStrDate = currentYear + currentMonth + currentDay;
-    currentIntDate = HelpMethods::convertStringToInt(currentStrDate);
+    if(month.size() == 1) {
+        month = "0" + month;
+    }
 
-    return currentIntDate;
+    if(day.size() == 1) {
+        day =  "0" + day;
+    }
+
+    strDate = year + month + day;
+    intDate = HelpMethods::convertStringToInt(strDate);
+
+    return intDate;
 
 }
 
@@ -322,7 +376,7 @@ void BudgetManager::showTransactionsFromOldestToLatest(vector <Transactions> tra
     sort(transactions.begin(), transactions.end());
 
     for(vector <Transactions>::iterator itr = transactions.begin(); itr != transactions.end(); itr++) {
-        cout << "Income ID: " << itr->getTransactionId() << endl;
+        cout << "Transacion ID: " << itr->getTransactionId() << endl;
         cout << "User ID: " << itr->getUserId() << endl;
         cout << "Date: " << itr->getDate() << endl;
         cout << "Category: " << itr->getItem() << endl;
