@@ -39,7 +39,7 @@ void BudgetApp::userRegistration() {
 void BudgetApp::userLogIn() {
     userManager.userLogIn();
     if(userManager.checkIfUserIsLogged()) {
-        budgetManager = new BudgetManager("Incomes.xml", "Expenses.xml", userManager.getLoggedUsersId());
+        budgetManager = new BudgetManager(userManager.getLoggedUsersId(), "Incomes.xml", "Expenses.xml");
     }
 }
 

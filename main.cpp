@@ -62,12 +62,3 @@ int main() {
     return 0;
 }
 
-int main_inactive() {
-    BudgetApp budgetApp("Users.xml");
-
-    budgetApp.userLogIn();
-    budgetApp.displayBalance();
-
-
-    return 0;
-}

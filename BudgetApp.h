@@ -40,10 +40,6 @@ public:
 
     void displayBalance();
 
-//    void displayCurrentMonthBalance();
-//    void displayPreviousMonthBalance();
-//    void displaySpecificPeriodBalance();
-
     void changeUsersPassword();
     void userLogOut();
 

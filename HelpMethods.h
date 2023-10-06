@@ -20,7 +20,9 @@ public:
 
     static double convertStringToDouble(string number);
 
-    static void changeCommaToDot(string input);
+    static string changeCommaToDot(string input);
+
+    static bool checkIfNumber(string input);
 
 
 };

@@ -46,14 +46,26 @@ double HelpMethods::convertStringToDouble(string number)
     return numberDouble;
 }
 
-void HelpMethods::changeCommaToDot(string input)
+string HelpMethods::changeCommaToDot(string input)
 {
+    string output;
+
     for(size_t i = 0; i < input.size(); i++)
     {
         if(input[i] == ',')
         {
            input.replace(i, 1, ".");
         }
+
+        output.push_back(input[i]);
     }
+
+    return output;
+}
+
+bool HelpMethods::checkIfNumber(string input)
+{
+    double number;
+    return (istringstream(input) >> number >> ws).eof();
 }
 

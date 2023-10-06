@@ -26,7 +26,7 @@ class BudgetManager {
     void addTransaction(string transactionName, string transactionTag, vector <Transactions> transactions, TransactionFile transactionFile);
     int addTransactionsDate(string transactionType);
     string addTransactionsCategory(string transactionTag);
-    double addTransactionsAmount();
+    double addTransactionsAmount(string transactionName);
 
     getDate(string monthTag, string dayTag);
     int getFirstDayOfCurrentMonthDate();
@@ -35,22 +35,18 @@ class BudgetManager {
 
 
     void displayBalance(int beginingDate, int endDate);
-    void showTransactionsFromOldestToLatest(vector <Transactions> transactions, int beginingDate, int endDate);
-    double showSumOfTransactions(vector <Transactions> transactions); //tutaj trzrba bedzie przekazac zmieniony wektor
+    void showTransactionsFromOldestToLatest(vector <Transactions> transactions);
+    double showSumOfTransactions(vector <Transactions> transactions);
     vector <Transactions> filterTransactions(vector <Transactions> transactions, int beginingDate, int endDate);
-
-
-
-
 
 
 public:
 
-    BudgetManager(string incomesFileName, string expensesFileName, int loggedUserId) : incomeFile(incomesFileName), expensesFile(expensesFileName), LOGGED_USER_ID(loggedUserId) {
+    BudgetManager(int loggedUserId, string incomesFileName, string expensesFileName) : LOGGED_USER_ID(loggedUserId), incomeFile(incomesFileName), expensesFile(expensesFileName){
 
-        incomeFile.loadOperationFromFile(incomes, LOGGED_USER_ID);
+        incomeFile.loadOperationFromFile(incomes, LOGGED_USER_ID, "INCOME");
 
-        expensesFile.loadOperationFromFile(expenses, LOGGED_USER_ID);
+        expensesFile.loadOperationFromFile(expenses, LOGGED_USER_ID, "EXPENSE");
     };
     void addIncome();
     void addExpense();
