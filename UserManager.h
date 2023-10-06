@@ -16,6 +16,8 @@ class UserManager {
     int loggedUsersId;
 
     char chosenOptionFromUsersMenu;
+    bool checkIfLoginExists(User registerUser);
+    string getCurrentUsersName();
 
 public:
 

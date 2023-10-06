@@ -9,7 +9,8 @@ bool UserManager::checkIfUserIsLogged() {
 }
 
 void UserManager::displayUsersMenu() {
-    cout << "You are logged in" << endl;
+    cout << ">>> Hello " << getCurrentUsersName() << " - you are now logged in. <<<" << endl << endl;
+
     cout << "1 - Add income" << endl;
     cout << "2 - Add expense" << endl;
     cout << "3 - Check account balance" << endl;
@@ -28,15 +29,22 @@ char UserManager::getChosenOptionFromUsersMenu() {
 void UserManager::userRegistration() {
     User user;
 
-    cout << "REGISTRATION" << endl;
+    cout << ">>> REGISTRATION <<<" << endl << endl;
     cout << "Insert name: ";
     user.setName(HelpMethods::readLine());
     cout << "Insert surname: ";
     user.setSurname(HelpMethods::readLine());
-    cout << "Insert login: ";
-    user.setLogin(HelpMethods::readLine());
+
+    do {
+        cout << "Insert login: ";
+        user.setLogin(HelpMethods::readLine());
+    } while(checkIfLoginExists(user));
+
     cout << "Insert password: ";
     user.setPassword(HelpMethods::readLine());
+
+    cout << users.size() << endl;
+    system("pause");
 
     users.size() == 0 ? user.setUserId(1) : user.setUserId(users.back().getUserId() + 1); //setting usersId in users vector
 
@@ -51,7 +59,7 @@ void UserManager::userLogIn() {
     string login = "";
     string password = "";
 
-    cout << "LOGGING" << endl;
+    cout << ">>> LOG IN <<<" << endl << endl;
 
     cout << "Login: ";
     login = HelpMethods::readLine();
@@ -62,19 +70,29 @@ void UserManager::userLogIn() {
             cout << "Password: ";
             password = HelpMethods::readLine();
 
-            itr->getPassword() == password ? cout << "You are logged in." << endl : cout << "Password is incorrect." << endl;
-            system("pause");
-
-            loggedUsersId = itr->getUserId();
+            if( itr->getPassword() == password) {
+                loggedUsersId = itr->getUserId();
+                cout << endl << "Login and password are correct." << endl << endl;
+                system("pause");
+                return;
+            } else {
+                cout << endl << "The password is incorrect." << endl << endl;
+                system("pause");
+                return;
+            }
         }
     }
-    return;
 
-    cout << "This login doesn't exist" << endl;
+    cout << "This login doesn't exist in data base." << endl << endl;
+    system("pause");
+
+    return;
 }
 
 void UserManager::changeUsersPassword() {
     string newUsersPassword = "";
+
+    system("cls");
 
     cout << "Type new password: ";
 
@@ -89,8 +107,8 @@ void UserManager::changeUsersPassword() {
         }
     }
 
-    //userFile.changeUsersPassword();
-
+    cout << endl << "Password has been succsessfuly updated." << endl << endl;
+    system("pause");
 }
 
 void UserManager::userLogOut() {
@@ -99,4 +117,29 @@ void UserManager::userLogOut() {
 
 int UserManager::getLoggedUsersId() {
     return loggedUsersId;
+}
+
+//private
+
+bool UserManager::checkIfLoginExists(User registerUser) {
+    for(vector <User>::iterator itr = users.begin(); itr != users.end(); itr++) {
+        if(registerUser.getLogin() == itr->getLogin()) {
+            system("cls");
+            cout << "This login has been already taken. Please type different login." << endl << endl;
+            system("pause");
+            cout << endl;
+            return true;
+        }
+    }
+    return false;
+}
+
+string UserManager::getCurrentUsersName() {
+    string loggedUsersName = "";
+    for(vector <User>::iterator itr = users.begin(); itr != users.end(); itr++) {
+        if(loggedUsersId == itr->getUserId()) {
+            loggedUsersName = itr->getName();
+        }
+    }
+    return loggedUsersName;
 }

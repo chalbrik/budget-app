@@ -2,8 +2,11 @@
 #define TRANSACTIONFILE_H
 
 #include <iostream>
+#include <vector>
+#include <iomanip>
 #include "XmlFile.h"
 #include "Transactions.h"
+#include "HelpMethods.h"
 
 using namespace std;
 
@@ -14,7 +17,7 @@ public:
     TransactionFile(string transactionFileName) : XmlFile(transactionFileName){};
 
     void addOperationToFile(string transactionName, Transactions transaction);
-    void loadOperationFromFile();
+    void loadOperationFromFile(vector <Transactions> &transactions, int loggedUserId, string transactionTag);
 
 };
 
