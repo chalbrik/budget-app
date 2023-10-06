@@ -3,28 +3,47 @@
 
 #include <iostream>
 #include "UserManager.h"
+#include "BudgetManager.h"
 
 using namespace std;
 
 class BudgetApp {
 
     UserManager userManager;
+    BudgetManager* budgetManager;
+
+    char chosenOptionFromMainMenu;
 
 public:
 
-    BudgetApp(string userFileName) : userManager(userFileName) {};
+    BudgetApp(string userFileName) : userManager(userFileName) {
+        chosenOptionFromMainMenu = 0;
+        budgetManager = NULL;
+    };
+
+    ~BudgetApp() {
+        delete budgetManager;
+        budgetManager = NULL;
+    }
+
+    void displayMainMenu();
+    void displayUsersMenu();
+    bool checkIfUserIsLogged();
+    char getChosenOptionFromMainMenu();
+    char getChosenOptionFromUsersMenu();
 
     void userRegistration();
     void userLogIn();
 
     void addIncome();
     void addExpense();
+
     void displayCurrentMonthBalance();
     void displayPreviousMonthBalance();
     void displaySpecificPeriodBalance();
 
-    void changePassword();
-    void LogOut();
+    void changeUsersPassword();
+    void userLogOut();
 
 };
 

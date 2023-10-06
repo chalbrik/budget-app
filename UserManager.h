@@ -13,19 +13,30 @@ class UserManager {
 
     UserFile userFile;
     vector <User> users;
+    int loggedUsersId;
+
+    char chosenOptionFromUsersMenu;
 
 public:
 
     UserManager(string userFileName) : userFile(userFileName) {
 
-    userFile.loadUsersFromFile();
+        loggedUsersId = 0;
+
+        userFile.loadUsersFromFile(users);
 
     };
 
+    bool checkIfUserIsLogged();
+    void displayUsersMenu();
+    char getChosenOptionFromUsersMenu();
+
     void userRegistration();
     void userLogIn();
-    void changePassword();
-    void LogOut();
+    void changeUsersPassword();
+    void userLogOut();
+
+    int getLoggedUsersId();
 
 };
 

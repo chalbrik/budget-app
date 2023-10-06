@@ -9,23 +9,23 @@ class Transactions{
 
     int transactionId;
     int userId;
-    string date;
+    int date;
     string item;
-    string amount;
+    double amount;
 
 public:
 
     int getTransactionId();
     int getUserId();
-    string getDate();
+    int getDate();
     string getItem();
-    string getAmount();
+    double getAmount();
 
     void setTransactionId(int newTransactionId);
     void setUserId(int newUserId);
-    void setDate(string newDate);
+    void setDate(int newDate);
     void setItem(string newItem);
-    void setAmount(string newAmount);
+    void setAmount(double newAmount);
 
 
 };

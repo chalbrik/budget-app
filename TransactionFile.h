@@ -3,6 +3,7 @@
 
 #include <iostream>
 #include "XmlFile.h"
+#include "Transactions.h"
 
 using namespace std;
 
@@ -10,10 +11,10 @@ class TransactionFile : XmlFile {
 
 public:
 
-    TransactionFile();
+    TransactionFile(string transactionFileName) : XmlFile(transactionFileName){};
 
-    addOperationToFile();
-    loadOperationFromFile();
+    void addOperationToFile(string transactionName, Transactions transaction);
+    void loadOperationFromFile();
 
 };
 
