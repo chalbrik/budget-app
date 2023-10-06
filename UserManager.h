@@ -2,8 +2,10 @@
 #define USERMANAGER_H
 
 #include <iostream>
+#include <vector>
 #include "UserFile.h"
 #include "User.h"
+#include "HelpMethods.h"
 
 using namespace std;
 
@@ -14,7 +16,11 @@ class UserManager {
 
 public:
 
-    UserManager();
+    UserManager(string userFileName) : userFile(userFileName) {
+
+    userFile.loadUsersFromFile();
+
+    };
 
     void userRegistration();
     void userLogIn();

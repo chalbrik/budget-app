@@ -12,7 +12,7 @@ class BudgetApp {
 
 public:
 
-    UserManager();
+    BudgetApp(string userFileName) : userManager(userFileName) {};
 
     void userRegistration();
     void userLogIn();

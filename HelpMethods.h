@@ -9,7 +9,10 @@ class HelpMethods {
 
 public:
 
-    changeCommaToDot();
+    static string readLine();
+
+    void changeCommaToDot();
+
 
 };
 
