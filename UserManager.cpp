@@ -98,8 +98,6 @@ void UserManager::changeUsersPassword() {
 
     newUsersPassword = HelpMethods::readLine();
 
-    //trzeba to zrobiæ w vektorze najpierw
-
     for(size_t i = 0; i < users.size(); i++) {
         if(loggedUsersId == users[i].getUserId()) {
             users[i].setPassword(newUsersPassword);
@@ -115,7 +113,7 @@ void UserManager::userLogOut() {
     loggedUsersId = 0;
 }
 
-int UserManager::getLoggedUsersId() {
+int UserManager::getLoggedUsersId() const{
     return loggedUsersId;
 }
 

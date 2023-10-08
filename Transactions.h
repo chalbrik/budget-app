@@ -15,11 +15,11 @@ class Transactions{
 
 public:
 
-    int getTransactionId();
-    int getUserId();
-    int getDate();
-    string getItem();
-    double getAmount();
+    int getTransactionId() const;
+    int getUserId() const;
+    int getDate() const;
+    string getItem() const;
+    double getAmount() const;
 
     void setTransactionId(int newTransactionId);
     void setUserId(int newUserId);

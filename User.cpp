@@ -1,18 +1,18 @@
 #include "User.h"
 
-int User::getUserId() {
+int User::getUserId() const{
     return userId;
 }
-string User::getLogin() {
+string User::getLogin() const{
     return login;
 }
-string User::getPassword() {
+string User::getPassword() const{
     return password;
 }
-string User::getName() {
+string User::getName() const{
     return name;
 }
-string User::getSurname() {
+string User::getSurname() const{
     return surname;
 }
 

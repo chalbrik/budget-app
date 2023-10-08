@@ -28,7 +28,7 @@ class BudgetManager {
     string addTransactionsCategory(string transactionTag);
     double addTransactionsAmount(string transactionName);
 
-    getDate(string monthTag, string dayTag);
+    int getDate(string monthTag, string dayTag);
     int getFirstDayOfCurrentMonthDate();
     int getSpecificDateFromUser();
     bool checkIfADateFitInRequiredPeriod(string date);

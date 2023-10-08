@@ -15,11 +15,11 @@ int userId;
 
 public:
 
-    int getUserId();
-    string getLogin();
-    string getPassword();
-    string getName();
-    string getSurname();
+    int getUserId() const;
+    string getLogin() const;
+    string getPassword() const;
+    string getName() const;
+    string getSurname() const;
 
     void setUserId(int newUserId);
     void setLogin(string newLogin);

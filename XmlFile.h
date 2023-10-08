@@ -18,7 +18,7 @@ public:
 
     XmlFile(string fileName) : FILE_NAME(fileName) {};
 
-    string getFileName();
+    string getFileName() const;
     void saveXmlFile();
     void loadXmlFile();
 

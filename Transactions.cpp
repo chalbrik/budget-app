@@ -1,18 +1,18 @@
 #include "Transactions.h"
 
-int Transactions::getTransactionId() {
+int Transactions::getTransactionId() const{
     return transactionId;
 }
-int Transactions::getUserId() {
+int Transactions::getUserId() const{
     return userId;
 }
-int Transactions::getDate() {
+int Transactions::getDate() const{
     return date;
 }
-string Transactions::getItem() {
+string Transactions::getItem() const{
     return item;
 }
-double Transactions::getAmount() {
+double Transactions::getAmount() const{
     return amount;
 }
 
