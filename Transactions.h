@@ -27,8 +27,6 @@ public:
     void setItem(string newItem);
     void setAmount(double newAmount);
 
-    bool operator<(const Transactions& other) const;
-
 };
 
 #endif

@@ -37,7 +37,3 @@ void Transactions::setAmount(double newAmount)
     amount = newAmount;
 }
 
-bool Transactions::operator<(const Transactions& other) const
-{
-    return date < other.date;
-}

@@ -39,6 +39,8 @@ class BudgetManager {
     double showSumOfTransactions(vector <Transactions> transactions);
     vector <Transactions> filterTransactions(vector <Transactions> transactions, int beginingDate, int endDate);
 
+    static bool compareDates(Transactions t1, Transactions t2);
+
 
 public:
 

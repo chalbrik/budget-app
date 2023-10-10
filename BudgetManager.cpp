@@ -402,7 +402,7 @@ void BudgetManager::displayBalance(int beginingDate, int endDate) {
 
 void BudgetManager::showTransactionsFromOldestToLatest(vector <Transactions> transactions) {
 
-    sort(transactions.begin(), transactions.end());
+    sort(transactions.begin(), transactions.end(), compareDates);
 
     for(vector <Transactions>::iterator itr = transactions.begin(); itr != transactions.end(); itr++) {
         cout << "Transacion ID: " << itr->getTransactionId() << endl;
@@ -435,6 +435,11 @@ vector <Transactions> BudgetManager::filterTransactions(vector <Transactions> tr
     }
 
     return filteredTransactions;
+}
+
+bool BudgetManager::compareDates(Transactions t1, Transactions t2)
+{
+    return (t1.getDate() < t2.getDate());
 }
 
 
