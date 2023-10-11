@@ -55,10 +55,6 @@ public:
 
     void displayBalanceMenu();
 
-    void displayCurrentMonthBalance();
-    void displayPreviousMonthBalance();
-    void displaySpecificPeriodBalance();
-
     void diplayCurrentMonthExpensesPlan();
 
 

@@ -1,7 +1,74 @@
 #include "BalanceManager.h"
 
 
-void BalanceManager::displayBalance(int beginingDate, int endDate, vector <Transactions> incomes, vector <Transactions> expenses) {
+void BalanceManager::displayBalanceMenu(vector <Transactions> incomes, vector <Transactions> expenses) {
+    char chooseOption;
+
+    system("cls");
+
+    cout << ">>> DISPLAY BALANCE ACCOUNT <<<" << endl << endl;
+    cout << "1 - Display current month balance" << endl;
+    cout << "2 - Display previous month balance" << endl;
+    cout << "3 - Choose period to display balance" << endl;
+
+    cout << endl << "Option: ";
+
+    chooseOption = HelpMethods::getCharacter();
+
+    switch(chooseOption) {
+    case '1':
+        displayCurrentMonthBalance(incomes, expenses);
+        break;
+    case '2':
+        displayPreviousMonthBalance(incomes, expenses);
+        break;
+    case '3':
+        displaySpecificPeriodBalance(incomes, expenses);
+        break;
+    }
+}
+
+void BalanceManager::displayCurrentMonthBalance(vector <Transactions> &incomes, vector <Transactions> &expenses) {
+
+    int firstDayOfCurrentMonthDate = 0;
+    int currentDate = 0;
+
+    currentDate = dateManager.getDate("CURRENT", "TODAY");
+
+    firstDayOfCurrentMonthDate = dateManager.getDate("CURRENT", "FIRST");
+
+    displayBalance(firstDayOfCurrentMonthDate, currentDate, incomes, expenses);
+
+}
+
+void BalanceManager::displayPreviousMonthBalance(vector <Transactions> &incomes, vector <Transactions> &expenses) {
+
+    int firstDayOfPreviousMonthDate = 0;
+    int lastDayOfPreviousMonthDate = 0;
+
+    firstDayOfPreviousMonthDate = dateManager.getDate("PREVIOUS", "FIRST");
+    lastDayOfPreviousMonthDate = dateManager.getDate("PREVIOUS", "LAST");
+
+    displayBalance(firstDayOfPreviousMonthDate, lastDayOfPreviousMonthDate, incomes, expenses);
+
+}
+
+void BalanceManager::displaySpecificPeriodBalance(vector <Transactions> &incomes, vector <Transactions> &expenses) {
+
+    int dateBeginning = 0;
+    int dateEnd = 0;
+
+    cout << endl << "Insert beginning of desired balance period." << endl;
+    dateBeginning = dateManager.getSpecificDateFromUser();
+    cout << endl << "Insert end of desired balance period." << endl;
+    dateEnd = dateManager.getSpecificDateFromUser();
+
+    displayBalance(dateBeginning, dateEnd, incomes, expenses);
+
+}
+
+
+void BalanceManager::displayBalance(int beginingDate, int endDate, vector <Transactions> &incomes, vector <Transactions> &expenses) {
 
     vector <Transactions> filteredIncomes;
     vector <Transactions> filteredExpenses;
