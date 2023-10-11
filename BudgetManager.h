@@ -3,11 +3,11 @@
 
 #include <iostream>
 #include <vector>
-#include <ctime>
-#include <algorithm>
 #include "UserManager.h"
 #include "TransactionFile.h"
 #include "Transactions.h"
+#include "DateManager.h"
+#include "BalanceManager.h"
 #include "HelpMethods.h"
 
 
@@ -28,25 +28,13 @@ class BudgetManager {
 
     double currentMonthSavings;
 
-
+    DateManager dateManager;
+    BalanceManager balanceManager;
 
     void addTransaction(string transactionName, string transactionTag, vector <Transactions> transactions, TransactionFile transactionFile);
     int addTransactionsDate(string transactionType);
     string addTransactionsCategory(string transactionTag);
     double addTransactionsAmount(string transactionName);
-
-    int getDate(string monthTag, string dayTag);
-    int getFirstDayOfCurrentMonthDate();
-    int getSpecificDateFromUser();
-    bool checkIfADateFitInRequiredPeriod(string date);
-
-
-    void displayBalance(int beginingDate, int endDate);
-    void showTransactionsFromOldestToLatest(vector <Transactions> transactions);
-    double showSumOfTransactions(vector <Transactions> transactions);
-    vector <Transactions> filterTransactions(vector <Transactions> transactions, int beginingDate, int endDate);
-
-    static bool compareDates(Transactions t1, Transactions t2);
 
     double getCurrentMonthIncome();
 
