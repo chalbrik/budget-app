@@ -40,6 +40,8 @@ public:
 
     void displayBalance();
 
+    void diplayCurrentMonthExpensesPlan();
+
     void changeUsersPassword();
     void userLogOut();
 

@@ -49,10 +49,14 @@ int main() {
                 break;
 
             case '4':
-                budgetApp.changeUsersPassword();
+                //budgetApp.diplayCurrentMonthExpensesPlan();
                 break;
 
             case '5':
+                budgetApp.changeUsersPassword();
+                break;
+
+            case '6':
                 budgetApp.userLogOut();
                 break;
             }

@@ -76,6 +76,42 @@ void BudgetManager::displaySpecificPeriodBalance() {
 
 }
 
+void BudgetManager::diplayCurrentMonthExpensesPlan() {
+    double currentMonthIncome = 0;
+
+    string strCurrentMonthExpenses = "";
+    double currentMonthExpenses = 0;
+
+    string strCurrentMonthSavings = "";
+    double amountToSpendDuringMonth = 0;
+
+    system("cls");
+    cout << ">>> EXPENSES PLAN FOR CURRENT MONTH <<<" << endl << endl;
+
+    currentMonthIncome = getCurrentMonthIncome();
+
+    cout << "Current month income: " << currentMonthIncome << " pln." << endl << endl;
+
+    cout << "How much savings would you like to save this month?" << endl;
+    cout << "Amount of savings: ";
+
+    strCurrentMonthSavings = HelpMethods::readLine();
+    currentMonthSavings = HelpMethods::convertStringToDouble(strCurrentMonthSavings);
+
+    amountToSpendDuringMonth = currentMonthIncome - currentMonthSavings;
+
+    cout << "Amount of money available to spend for current month: " << amountToSpendDuringMonth << endl;
+
+
+
+
+
+
+
+    cout << endl << endl;
+    system("pause");
+
+}
 
 // private
 
@@ -437,11 +473,19 @@ vector <Transactions> BudgetManager::filterTransactions(vector <Transactions> tr
     return filteredTransactions;
 }
 
-bool BudgetManager::compareDates(Transactions t1, Transactions t2)
-{
+bool BudgetManager::compareDates(Transactions t1, Transactions t2) {
     return (t1.getDate() < t2.getDate());
 }
 
+double BudgetManager::getCurrentMonthIncome() {
+    for(vector <Transactions>::iterator itr = incomes.begin(); itr != incomes.end(); itr++) {
+        if(itr->getItem() == "Salary") {
+            return itr->getAmount();
+        }
+    }
+
+    return 0;
+}
 
 
 

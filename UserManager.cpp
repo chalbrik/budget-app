@@ -14,8 +14,9 @@ void UserManager::displayUsersMenu() {
     cout << "1 - Add income" << endl;
     cout << "2 - Add expense" << endl;
     cout << "3 - Check account balance" << endl;
-    cout << "4 - Change password" << endl;
-    cout << "5 - Log out" << endl;
+    cout << "4 - Check month expenses plan" << endl;
+    cout << "5 - Change password" << endl;
+    cout << "6 - Log out" << endl;
 
     cout << endl << "Option: ";
 
@@ -42,9 +43,6 @@ void UserManager::userRegistration() {
 
     cout << "Insert password: ";
     user.setPassword(HelpMethods::readLine());
-
-    cout << users.size() << endl;
-    system("pause");
 
     users.size() == 0 ? user.setUserId(1) : user.setUserId(users.back().getUserId() + 1); //setting usersId in users vector
 
