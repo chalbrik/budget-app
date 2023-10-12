@@ -1,9 +1,10 @@
 #include "TransactionFile.h"
 
-void TransactionFile::addOperationToFile(string transactionTag, Transactions transaction) {
-    xmlFile.AddElem(transactionTag);
+void TransactionFile::addOperationToFile(TransactionTag transactionTag, Transactions transaction) {
+
+    xmlFile.AddElem(HelpMethods::getTransactionType(transactionTag));
     xmlFile.IntoElem();
-    xmlFile.AddElem(transactionTag + "ID", transaction.getTransactionId());
+    xmlFile.AddElem(HelpMethods::getTransactionType(transactionTag) + "ID", transaction.getTransactionId());
     xmlFile.AddElem("USERID", transaction.getUserId());
     xmlFile.AddElem("DATE", transaction.getDate());
     xmlFile.AddElem("ITEM", transaction.getItem());

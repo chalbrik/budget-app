@@ -2,12 +2,16 @@
 
 void BudgetManager::addIncome() {
 
-    addTransaction("income", "INCOME", incomes, incomeFile);
+    setTransactionTag(INCOME);
+
+    addTransaction(incomes, incomeFile);
 }
 
 void BudgetManager::addExpense() {
 
-    addTransaction("expense", "EXPENSE", expenses, expensesFile);
+    setTransactionTag(EXPENSE);
+
+    addTransaction(expenses, expensesFile);
 }
 
 void BudgetManager::displayBalanceMenu() {
@@ -39,7 +43,23 @@ void BudgetManager::diplayCurrentMonthExpensesPlan() {
 
     amountToSpendDuringMonth = currentMonthIncome - currentMonthSavings;
 
-    cout << "Amount of money available to spend for current month: " << amountToSpendDuringMonth << endl;
+    cout << endl << "Amount of money available to spend for current month: " << amountToSpendDuringMonth << endl;
+
+    //trzeba obliczyæ ile zosta³o do pocz¹tku nastêpnej wyp³aty
+    //pokaz ile tygodni zosta³o do nastêpnej wyp³aty
+
+    cout << "There are ... days / ... weeks till the next paycheck." << endl << endl;
+
+    // musze pobraæ dzisiejsz¹ datê
+
+    //dateMethods.getDate();
+
+    //muszê ustawiæ date wyp³aty
+    //i obliczyæ ile dni jest do kolejnej wyp³aty
+
+    cout << "Amount of money to spend in each remaining week - ..." << endl;
+
+
 
 
     cout << endl << endl;
@@ -50,18 +70,19 @@ void BudgetManager::diplayCurrentMonthExpensesPlan() {
 
 // private
 
-void BudgetManager::addTransaction(string transactionName, string transactionTag, vector <Transactions> transactions, TransactionFile transactionFile) {
+void BudgetManager::addTransaction(vector <Transactions> &transactions, TransactionFile transactionFile) {
     Transactions transaction;
 
     int dateOfATransaction = 0;
     string item = "";
     double amount = 0;
 
-    cout << ">>> ADD " << transactionTag << " <<<" << endl << endl;
+    cout << ">>> ADD " << HelpMethods::getTransactionType(transactionTag) << " <<<" << endl << endl;
 
-    dateOfATransaction = addTransactionsDate(transactionName);
-    item = addTransactionsCategory(transactionTag);
-    amount = addTransactionsAmount(transactionName);
+
+    dateOfATransaction = addTransactionsDate();
+    item = addTransactionsCategory();
+    amount = addTransactionsAmount();
 
     transaction.setUserId(LOGGED_USER_ID);
 
@@ -75,13 +96,13 @@ void BudgetManager::addTransaction(string transactionName, string transactionTag
     transactionFile.addOperationToFile(transactionTag, transaction);
 }
 
-int BudgetManager::addTransactionsDate(string transactionType) {
+int BudgetManager::addTransactionsDate() {
     char chooseOption;
 
     int dateOfATransaction = 0;
 
-    cout << "1 - Would you like to add " + transactionType + " with today's date?" << endl;
-    cout << "2 - Would you like to add " + transactionType + " with different date?" << endl;
+    cout << "1 - Would you like to add " + HelpMethods::getTransactionType(transactionTag) + " with today's date?" << endl;
+    cout << "2 - Would you like to add " + HelpMethods::getTransactionType(transactionTag) + " with different date?" << endl;
 
     cout << endl << "Option: ";
 
@@ -89,24 +110,26 @@ int BudgetManager::addTransactionsDate(string transactionType) {
 
     switch(chooseOption) {
     case '1':
-        dateOfATransaction = dateManager.getDate("CURRENT", "TODAY");
+        dateOfATransaction = dateMethods.getDate(CURRENT, TODAY);
         break;
     case '2':
-        dateOfATransaction = dateManager.getSpecificDateFromUser();
+        dateOfATransaction = dateMethods.getSpecificDateFromUser();
         break;
     }
     return dateOfATransaction;
 }
 
-string BudgetManager::addTransactionsCategory(string transactionTag) {
+string BudgetManager::addTransactionsCategory() {
 
     char chooseOption;
     string item = "";
 
+    string transactionType = "";
+
     system("cls");
     cout << "Pick category of your transaction." << endl << endl;
 
-    if(transactionTag == "INCOME") {
+    if(transactionTag == INCOME) {
         cout << "1 - salary" << endl;
         cout << "2 - sale" << endl;
         cout << "3 - repayment" << endl;
@@ -127,7 +150,7 @@ string BudgetManager::addTransactionsCategory(string transactionTag) {
             break;
         }
 
-    } else if(transactionTag == "EXPENSE") {
+    } else if(transactionTag == EXPENSE) {
 
         cout << "1 - Food" << endl;
         cout << "2 - Transportation" << endl;
@@ -153,14 +176,14 @@ string BudgetManager::addTransactionsCategory(string transactionTag) {
     return item;
 }
 
-double BudgetManager::addTransactionsAmount(string transactionName) {
+double BudgetManager::addTransactionsAmount() {
     string strAmount = "";
     double amount = 0;
 
     do {
         system("cls");
 
-        cout << "What is an amount of your " << transactionName << "?" << endl;
+        cout << "What is an amount of your " << HelpMethods::getTransactionType(transactionTag) << "?" << endl;
         cout << endl << "Type amount: ";
 
         strAmount = HelpMethods::readLine();
@@ -179,15 +202,25 @@ double BudgetManager::addTransactionsAmount(string transactionName) {
 
 }
 
-
 double BudgetManager::getCurrentMonthIncome() {
+
+    double incomeAmount = 0;
+
     for(vector <Transactions>::iterator itr = incomes.begin(); itr != incomes.end(); itr++) {
         if(itr->getItem() == "Salary") {
-            return itr->getAmount();
+            incomeAmount = itr->getAmount();
         }
     }
 
-    return 0;
+    return incomeAmount;
+}
+
+void BudgetManager::setTransactionTag(TransactionTag newTag) {
+    transactionTag = newTag;
+}
+
+void BudgetManager::setMonthTag(MonthTag newTag) {
+    monthTag = newTag;
 }
 
 

@@ -32,10 +32,16 @@
 			<Add option="-Wall" />
 			<Add option="-fexceptions" />
 		</Compiler>
+		<Unit filename="BalanceManager.cpp" />
+		<Unit filename="BalanceManager.h" />
 		<Unit filename="BudgetApp.cpp" />
 		<Unit filename="BudgetApp.h" />
 		<Unit filename="BudgetManager.cpp" />
 		<Unit filename="BudgetManager.h" />
+		<Unit filename="DateManager.cpp" />
+		<Unit filename="DateManager.h" />
+		<Unit filename="Enumy.cpp" />
+		<Unit filename="Enumy.h" />
 		<Unit filename="HelpMethods.cpp" />
 		<Unit filename="HelpMethods.h" />
 		<Unit filename="Markup.cpp" />

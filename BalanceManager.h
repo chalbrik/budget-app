@@ -5,7 +5,7 @@
 #include <vector>
 #include <algorithm>
 #include "Transactions.h"
-#include "DateManager.h"
+#include "DateMethods.h"
 #include "HelpMethods.h"
 
 using namespace std;
@@ -14,7 +14,7 @@ class BalanceManager {
 
     //vector <Transactions> transactions;
 
-    DateManager dateManager;
+    DateMethods dateMethods;
 
     void displayCurrentMonthBalance(vector <Transactions> &incomes, vector <Transactions> &expenses);
     void displayPreviousMonthBalance(vector <Transactions> &incomes, vector <Transactions> &expenses);

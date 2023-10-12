@@ -7,16 +7,20 @@
 #include "XmlFile.h"
 #include "Transactions.h"
 #include "HelpMethods.h"
+#include "Enums.h"
+
 
 using namespace std;
 
 class TransactionFile : XmlFile {
 
+    //TransactionTag transactionTag;
+
 public:
 
     TransactionFile(string transactionFileName) : XmlFile(transactionFileName){};
 
-    void addOperationToFile(string transactionName, Transactions transaction);
+    void addOperationToFile(TransactionTag transactionTag, Transactions transaction);
     void loadOperationFromFile(vector <Transactions> &transactions, int loggedUserId, string transactionTag);
 
 };

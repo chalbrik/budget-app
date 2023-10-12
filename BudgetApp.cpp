@@ -39,7 +39,7 @@ void BudgetApp::userRegistration() {
 void BudgetApp::userLogIn() {
     userManager.userLogIn();
     if(userManager.checkIfUserIsLogged()) {
-        budgetManager = new BudgetManager(userManager.getLoggedUsersId(), "Incomes.xml", "Expenses.xml", "currentMonthExpenses.xml");
+        budgetManager = new BudgetManager(userManager.getLoggedUsersId(), INCOMES_FILE_NAME, EXPENSES_FILE_NAME, CURRENT_MONTH_FINANCES);
     }
 }
 
@@ -51,18 +51,15 @@ void BudgetApp::addExpense() {
     budgetManager->addExpense();
 }
 
-void BudgetApp::displayBalance()
-{
+void BudgetApp::displayBalance() {
     budgetManager->displayBalanceMenu();
 }
 
-void BudgetApp::diplayCurrentMonthExpensesPlan()
-{
+void BudgetApp::diplayCurrentMonthExpensesPlan() {
     budgetManager->diplayCurrentMonthExpensesPlan();
 }
 
-void BudgetApp::changeUsersPassword()
-{
+void BudgetApp::changeUsersPassword() {
     userManager.changeUsersPassword();
 }
 

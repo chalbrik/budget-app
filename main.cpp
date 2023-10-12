@@ -4,7 +4,7 @@
 using namespace std;
 
 int main() {
-    BudgetApp budgetApp("Users.xml");
+    BudgetApp budgetApp("Users.xml", "Incomes.xml", "Expenses.xml", "CurrentMonthExpenses.xml");
 
     while(true) {
 
@@ -49,7 +49,7 @@ int main() {
                 break;
 
             case '4':
-                //budgetApp.diplayCurrentMonthExpensesPlan();
+                budgetApp.diplayCurrentMonthExpensesPlan();
                 break;
 
             case '5':

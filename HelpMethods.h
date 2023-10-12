@@ -4,6 +4,10 @@
 #include <iostream>
 #include <sstream>
 
+#include "Enums.h"
+
+
+
 using namespace std;
 
 class HelpMethods {
@@ -24,16 +28,9 @@ public:
 
     static bool checkIfNumber(string input);
 
+    static string getTransactionType(TransactionTag transactionTag);
 
 };
-
-
-
-
-
-
-
-
 
 
 

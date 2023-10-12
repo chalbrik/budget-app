@@ -1,18 +1,19 @@
-#ifndef DATEMANAGER_H
-#define DATEMANAGER_H
+#ifndef DATEMETHODS_H
+#define DATEMETHODS_H
 
 #include <iostream>
 #include <ctime>
 #include "HelpMethods.h"
+#include "Enums.h"
 
 using namespace std;
 
-class DateManager {
+class DateMethods {
 
 
 public:
 
-    int getDate(string monthTag, string dayTag);
+    int getDate(MonthTag monthTag, DayTag dayTag);
     int getFirstDayOfCurrentMonthDate();
     int getSpecificDateFromUser();
     bool checkIfADateFitInRequiredPeriod(string date);
