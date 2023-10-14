@@ -3,12 +3,13 @@
 
 #include <iostream>
 #include <vector>
-#include <ctime>
-#include <bits/stdc++.h>
 #include "UserManager.h"
 #include "TransactionFile.h"
 #include "Transactions.h"
+#include "DateMethods.h"
+#include "BalanceManager.h"
 #include "HelpMethods.h"
+#include "Enums.h"
 
 
 using namespace std;
@@ -17,47 +18,61 @@ class BudgetManager {
 
     const int LOGGED_USER_ID;
 
+    TransactionTag transactionTag;
+    MonthTag monthTag;
+
     TransactionFile incomeFile;
     vector <Transactions> incomes;
 
     TransactionFile expensesFile;
     vector <Transactions> expenses;
 
-    void addTransaction(string transactionName, string transactionTag, vector <Transactions> transactions, TransactionFile transactionFile);
-    int addTransactionsDate(string transactionType);
-    string addTransactionsCategory(string transactionTag);
-    double addTransactionsAmount(string transactionName);
+    TransactionFile currentMonthFinancesFile;
+    vector <Transactions> currentMonthFinances;
 
-    int getDate(string monthTag, string dayTag);
-    int getFirstDayOfCurrentMonthDate();
-    int getSpecificDateFromUser();
-    bool checkIfADateFitInRequiredPeriod(string date);
+    double currentMonthSavings;
+
+    DateMethods dateMethods;
+    BalanceManager balanceManager;
+
+    void addTransaction(vector <Transactions> &transactions, TransactionFile transactionFile);
+    int addTransactionsDate();
+    string addTransactionsCategory();
+    double addTransactionsAmount();
+
+    double getCurrentMonthIncome();
+
+    string getTransactionType();
+
+    void setTransactionTag(TransactionTag newTag);
+    void setMonthTag(MonthTag newTag);
 
 
-    void displayBalance(int beginingDate, int endDate);
-    void showTransactionsFromOldestToLatest(vector <Transactions> transactions);
-    double showSumOfTransactions(vector <Transactions> transactions);
-    vector <Transactions> filterTransactions(vector <Transactions> transactions, int beginingDate, int endDate);
-
-    static bool compareDates(Transactions t1, Transactions t2);
 
 
 public:
 
-    BudgetManager(int loggedUserId, string incomesFileName, string expensesFileName) : LOGGED_USER_ID(loggedUserId), incomeFile(incomesFileName), expensesFile(expensesFileName){
+    BudgetManager(int loggedUserId, string incomesFileName, string expensesFileName, string currentMonthFinancesFileName) : LOGGED_USER_ID(loggedUserId),
+        incomeFile(incomesFileName),
+        expensesFile(expensesFileName),
+        currentMonthFinancesFile(currentMonthFinancesFileName) {
 
         incomeFile.loadOperationFromFile(incomes, LOGGED_USER_ID, "INCOME");
 
         expensesFile.loadOperationFromFile(expenses, LOGGED_USER_ID, "EXPENSE");
+
+        currentMonthFinancesFile.loadOperationFromFile(currentMonthFinances, LOGGED_USER_ID, "CURRENT_MONTH_EXPENSES_FILE");
+
     };
+
     void addIncome();
     void addExpense();
 
     void displayBalanceMenu();
 
-    void displayCurrentMonthBalance();
-    void displayPreviousMonthBalance();
-    void displaySpecificPeriodBalance();
+    void diplayCurrentMonthExpensesPlan();
+
+
 
 
 

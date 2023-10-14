@@ -69,3 +69,19 @@ bool HelpMethods::checkIfNumber(string input)
     return (istringstream(input) >> number >> ws).eof();
 }
 
+string HelpMethods::getTransactionType(TransactionTag transactionTag) {
+    string transactionType = "";
+
+    switch(transactionTag) {
+    case INCOME:
+        transactionType = "INCOME";
+        break;
+    case EXPENSE:
+        transactionType = "EXPENSE";
+        break;
+    }
+
+    return transactionType;
+}
+
+

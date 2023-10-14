@@ -4,7 +4,7 @@
 using namespace std;
 
 int main() {
-    BudgetApp budgetApp("Users.xml");
+    BudgetApp budgetApp("Users.xml", "Incomes.xml", "Expenses.xml", "CurrentMonthExpenses.xml");
 
     while(true) {
 
@@ -49,10 +49,14 @@ int main() {
                 break;
 
             case '4':
-                budgetApp.changeUsersPassword();
+                budgetApp.diplayCurrentMonthExpensesPlan();
                 break;
 
             case '5':
+                budgetApp.changeUsersPassword();
+                break;
+
+            case '6':
                 budgetApp.userLogOut();
                 break;
             }
