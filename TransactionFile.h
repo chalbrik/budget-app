@@ -4,6 +4,7 @@
 #include <iostream>
 #include <vector>
 #include <iomanip>
+#include <fstream>
 #include "XmlFile.h"
 #include "Transactions.h"
 #include "HelpMethods.h"

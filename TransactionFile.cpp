@@ -2,19 +2,31 @@
 
 void TransactionFile::addOperationToFile(TransactionTag transactionTag, Transactions transaction) {
 
-    xmlFile.AddElem(HelpMethods::getTransactionType(transactionTag));
-    xmlFile.IntoElem();
-    xmlFile.AddElem(HelpMethods::getTransactionType(transactionTag) + "ID", transaction.getTransactionId());
-    xmlFile.AddElem("USERID", transaction.getUserId());
-    xmlFile.AddElem("DATE", transaction.getDate());
-    xmlFile.AddElem("ITEM", transaction.getItem());
+    fstream outputXmlFile;
 
-    ostringstream amountStr;
-    amountStr << fixed << setprecision(2) << transaction.getAmount();
-    xmlFile.AddElem("AMOUNT", amountStr.str());
+    outputXmlFile.open(FILE_NAME, ios::out | ios::app);
 
-    xmlFile.OutOfElem();
-    saveXmlFile();
+    if(outputXmlFile.good()) {
+        loadXmlFile();
+        xmlFile.AddElem(HelpMethods::getTransactionType(transactionTag));
+        xmlFile.IntoElem();
+        xmlFile.AddElem(HelpMethods::getTransactionType(transactionTag) + "ID", transaction.getTransactionId());
+        xmlFile.AddElem("USERID", transaction.getUserId());
+        xmlFile.AddElem("DATE", transaction.getDate());
+        xmlFile.AddElem("ITEM", transaction.getItem());
+
+        ostringstream amountStr;
+        amountStr << fixed << setprecision(2) << transaction.getAmount();
+        xmlFile.AddElem("AMOUNT", amountStr.str());
+
+        xmlFile.OutOfElem();
+        saveXmlFile();
+    } else {
+        cout << "File " << FILE_NAME << " cannot be open." << endl << endl;
+    }
+
+    outputXmlFile.close();
+
 }
 
 void TransactionFile::loadOperationFromFile(vector <Transactions> &transactions, int loggedUserId, string transactionTag) {
