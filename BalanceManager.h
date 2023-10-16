@@ -22,8 +22,6 @@ class BalanceManager {
 
     void displayBalance(int beginingDate, int endDate, vector <Transactions> &incomes, vector <Transactions> &expenses);
     void showTransactionsFromOldestToLatest(vector <Transactions> transactions);
-    double showSumOfTransactions(vector <Transactions> transactions);
-    vector <Transactions> filterTransactions(vector <Transactions> transactions, int beginingDate, int endDate);
 
     static bool compareDates(Transactions t1, Transactions t2);
 
@@ -32,6 +30,9 @@ public:
     BalanceManager(){};
 
     void displayBalanceMenu(vector <Transactions> incomes, vector <Transactions> expenses);
+
+    vector <Transactions> filterTransactions(vector <Transactions> transactions, int beginingDate, int endDate);
+    double showSumOfTransactions(vector <Transactions> transactions);
 
 };
 

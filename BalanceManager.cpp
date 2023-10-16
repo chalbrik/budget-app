@@ -28,6 +28,31 @@ void BalanceManager::displayBalanceMenu(vector <Transactions> incomes, vector <T
     }
 }
 
+vector <Transactions> BalanceManager::filterTransactions(vector <Transactions> transactions, int beginingDate, int endDate) {
+    vector <Transactions> filteredTransactions;
+
+    for(vector <Transactions>::iterator itr = transactions.begin(); itr != transactions.end(); itr++) {
+
+        if(itr->getDate() >= beginingDate && itr->getDate() <= endDate) {
+            filteredTransactions.push_back(*itr);
+        }
+    }
+
+    return filteredTransactions;
+}
+
+double BalanceManager::showSumOfTransactions(vector <Transactions> transactions) {
+    double sumOfAmount = 0;
+
+    for(vector <Transactions>::iterator itr = transactions.begin(); itr != transactions.end(); itr++) {
+        sumOfAmount = sumOfAmount + itr->getAmount();
+    }
+
+    return sumOfAmount;
+}
+
+// private
+
 void BalanceManager::displayCurrentMonthBalance(vector <Transactions> &incomes, vector <Transactions> &expenses) {
 
     int firstDayOfCurrentMonthDate = 0;
@@ -114,29 +139,6 @@ void BalanceManager::showTransactionsFromOldestToLatest(vector <Transactions> tr
         cout << "Amount: " << itr->getAmount() << " pln" << endl;
         cout << endl;
     }
-}
-
-double BalanceManager::showSumOfTransactions(vector <Transactions> transactions) {
-    double sumOfAmount = 0;
-
-    for(vector <Transactions>::iterator itr = transactions.begin(); itr != transactions.end(); itr++) {
-        sumOfAmount = sumOfAmount + itr->getAmount();
-    }
-
-    return sumOfAmount;
-}
-
-vector <Transactions> BalanceManager::filterTransactions(vector <Transactions> transactions, int beginingDate, int endDate) {
-    vector <Transactions> filteredTransactions;
-
-    for(vector <Transactions>::iterator itr = transactions.begin(); itr != transactions.end(); itr++) {
-
-        if(itr->getDate() >= beginingDate && itr->getDate() <= endDate) {
-            filteredTransactions.push_back(*itr);
-        }
-    }
-
-    return filteredTransactions;
 }
 
 bool BalanceManager::compareDates(Transactions t1, Transactions t2) {

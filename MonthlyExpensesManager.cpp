@@ -1,54 +1,45 @@
 #include "MonthlyExpensesManager.h"
 
 
-void MonthlyExpensesManager::diplayCurrentMonthExpensesPlan(vector <Transactions> incomes) {
+void MonthlyExpensesManager::diplayCurrentMonthExpensesPlan(vector <Transactions> incomes, vector <Transactions> expenses) {
 
     double currentMonthIncome = 0;
 
-    string strCurrentMonthExpenses = "";
-    double currentMonthExpenses = 0;
-
-    string strCurrentMonthSavings = "";
     double amountToSpendDuringMonth = 0;
+
+    double amountOfMoneyToSpentInEveryWeek = 0;
+
+    int numberOfWeeksLeftToNextPaycheck = 0;
+    int restOfDaysLeftToNextPaycheck = 0;
+
+    currentMonthIncome = getCurrentMonthIncome(incomes);
+    paycheckDay = getPaycheckDayFromUser();
+    currentMonthSavings = askForCurrentMonthSavings();
+
 
     system("cls");
     cout << ">>> EXPENSES PLAN FOR CURRENT MONTH <<<" << endl << endl;
 
-    // tu funkcjonalnośc w której trzeba podać datę wypłaty
-
-    paycheckDay = getPaycheckDayFromUser();
-
-    currentMonthIncome = getCurrentMonthIncome(incomes);
 
     cout << "Current month income: " << currentMonthIncome << " pln." << endl << endl;
 
-    cout << "How much savings would you like to save this month?" << endl;
-    cout << "Amount of savings: ";
-
-    strCurrentMonthSavings = HelpMethods::readLine();
-    currentMonthSavings = HelpMethods::convertStringToDouble(strCurrentMonthSavings);
-
     amountToSpendDuringMonth = currentMonthIncome - currentMonthSavings;
+    amountOfMoneyToSpentInEveryWeek = amountToSpendDuringMonth / NUMBER_OF_WEEKS_IN_MONTH;
 
-    cout << endl << "Amount of money available to spend for current month: " << amountToSpendDuringMonth << endl;
+    cout << "Amount of money available to spend for current month - " << amountToSpendDuringMonth << " pln" << endl;
+    cout << "Amount of money to spend in each remaining week - " << amountOfMoneyToSpentInEveryWeek << " pln" << endl << endl;
 
     daysLeftToNextPaycheck = calculateHowManyDaysToNextPaycheck();
+    numberOfWeeksLeftToNextPaycheck = daysLeftToNextPaycheck / NUMBER_OF_DAYS_IN_WEEK;
+    restOfDaysLeftToNextPaycheck = daysLeftToNextPaycheck % NUMBER_OF_DAYS_IN_WEEK;
 
-    //trzeba obliczyæ ile zosta³o do pocz¹tku nastêpnej wyp³aty
-    //pokaz ile tygodni zosta³o do nastêpnej wyp³aty
+    cout << "There are " << daysLeftToNextPaycheck << " days / " << numberOfWeeksLeftToNextPaycheck << " weeks and " << restOfDaysLeftToNextPaycheck << " days till the next paycheck." << endl << endl;
 
-    cout << "There are " << daysLeftToNextPaycheck << " days / ... weeks till the next paycheck." << endl << endl;
+// trzeba napisa� ile juz wyda�em w tym miesi�cu
 
-    // musze pobraæ dzisiejsz¹ datê
+    sumOfCurrentMonthExpenses = getSumOfCurrentMonthExpenses(expenses);
 
-    //dateMethods.getDate();
-
-    //muszê ustawiæ date wyp³aty
-    //i obliczyæ ile dni jest do kolejnej wyp³aty
-
-    cout << "Amount of money to spend in each remaining week - ..." << endl;
-
-
+    cout << "You already spent " << sumOfCurrentMonthExpenses << " pln this month." << endl;
 
 
     cout << endl << endl;
@@ -64,7 +55,7 @@ double MonthlyExpensesManager::getCurrentMonthIncome(vector <Transactions> incom
     double incomeAmount = 0;
 
     for(vector <Transactions>::iterator itr = incomes.begin(); itr != incomes.end(); itr++) {
-        if(itr->getItem() == "Salary") {
+        if(itr->getItem() == "Salary") {//tu jeszcze trzeba doda� warunek ze z tego miesi�ca
             incomeAmount = itr->getAmount();
         }
     }
@@ -72,11 +63,46 @@ double MonthlyExpensesManager::getCurrentMonthIncome(vector <Transactions> incom
     return incomeAmount;
 }
 
+double MonthlyExpensesManager::getSumOfCurrentMonthExpenses(vector <Transactions> expenses) {
+
+    double calculatedSumOfCurrentMonthExpenses = 0;
+    vector <Transactions> filteredExpenses;
+
+    int firstDayOfCurrentMonthDate = 0;
+    int currentDate = 0;
+
+    currentDate = dateMethods.getDate(CURRENT, TODAY);
+
+    firstDayOfCurrentMonthDate = dateMethods.getDate(CURRENT, FIRST);
+
+    filteredExpenses = balanceManagerMethods.filterTransactions(expenses, firstDayOfCurrentMonthDate, currentDate);
+
+    calculatedSumOfCurrentMonthExpenses = balanceManagerMethods.showSumOfTransactions(filteredExpenses);
+
+    return calculatedSumOfCurrentMonthExpenses;
+
+}
+
+
+double MonthlyExpensesManager::askForCurrentMonthSavings() {
+    string strGivenCurrentMonthSavings = "";
+    double givenCurrentMonthSavings = 0;
+
+    system("cls");
+    cout << "How much savings would you like to save this month? - ";
+
+    strGivenCurrentMonthSavings = HelpMethods::readLine();
+    givenCurrentMonthSavings = HelpMethods::convertStringToDouble(strGivenCurrentMonthSavings);
+
+    return givenCurrentMonthSavings;
+}
+
 int MonthlyExpensesManager::getPaycheckDayFromUser() {
     string strPaycheckDay = "";
     int paycheckDay = 0;
 
-    cout << "Type your paycheck day: " << endl;
+    system("cls");
+    cout << "Type your paycheck day - ";
     strPaycheckDay = HelpMethods::readLine();
     paycheckDay = HelpMethods::convertStringToInt(strPaycheckDay);
 
@@ -87,7 +113,7 @@ int MonthlyExpensesManager::getPaycheckDayFromUser() {
 int MonthlyExpensesManager::calculateHowManyDaysToNextPaycheck() {
 
     int thirtyOneDayMonths[7] = {1, 3, 5, 7, 8, 10, 12};
-    int numberOfElementsThirtyOneDayMonths = sizeof(thirtyOneDayMonths)/sizeof(thirtyOneDayMonths[0]); // może mozna to zamienić na vektory i szybciej je przeglądać
+    int numberOfElementsThirtyOneDayMonths = sizeof(thirtyOneDayMonths)/sizeof(thirtyOneDayMonths[0]); // mo�e mozna to zamieni� na vektory i szybciej je przegl�da�
     int thirtyDayMonths[4] = {4, 6, 9, 11};
     int numberOfElementsThirtyDayMonths = sizeof(thirtyDayMonths)/sizeof(thirtyDayMonths[0]);
 
@@ -122,7 +148,7 @@ int MonthlyExpensesManager::calculateHowManyDaysToNextPaycheck() {
 
     for(int i = 0; i < numberOfElementsThirtyOneDayMonths; i++) {
         if(currentMonth == thirtyOneDayMonths[i]) {
-            daysLeftToEndOfTheMonth = 30 - currentDay;
+            daysLeftToEndOfTheMonth = 31 - currentDay;
         }
     }
 
@@ -130,3 +156,4 @@ int MonthlyExpensesManager::calculateHowManyDaysToNextPaycheck() {
 
     return howManyDaysToNextPaycheck;
 }
+

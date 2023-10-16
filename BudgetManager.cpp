@@ -20,7 +20,7 @@ void BudgetManager::displayBalanceMenu() {
 
 
 void BudgetManager::diplayCurrentMonthExpensesPlan() {
-    monthlyExpensesManager.diplayCurrentMonthExpensesPlan(incomes);
+    monthlyExpensesManager.diplayCurrentMonthExpensesPlan(incomes, expenses);
 }
 
 
