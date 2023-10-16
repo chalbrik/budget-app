@@ -20,51 +20,7 @@ void BudgetManager::displayBalanceMenu() {
 
 
 void BudgetManager::diplayCurrentMonthExpensesPlan() {
-    double currentMonthIncome = 0;
-
-    string strCurrentMonthExpenses = "";
-    double currentMonthExpenses = 0;
-
-    string strCurrentMonthSavings = "";
-    double amountToSpendDuringMonth = 0;
-
-    system("cls");
-    cout << ">>> EXPENSES PLAN FOR CURRENT MONTH <<<" << endl << endl;
-
-    currentMonthIncome = getCurrentMonthIncome();
-
-    cout << "Current month income: " << currentMonthIncome << " pln." << endl << endl;
-
-    cout << "How much savings would you like to save this month?" << endl;
-    cout << "Amount of savings: ";
-
-    strCurrentMonthSavings = HelpMethods::readLine();
-    currentMonthSavings = HelpMethods::convertStringToDouble(strCurrentMonthSavings);
-
-    amountToSpendDuringMonth = currentMonthIncome - currentMonthSavings;
-
-    cout << endl << "Amount of money available to spend for current month: " << amountToSpendDuringMonth << endl;
-
-    //trzeba obliczyæ ile zosta³o do pocz¹tku nastêpnej wyp³aty
-    //pokaz ile tygodni zosta³o do nastêpnej wyp³aty
-
-    cout << "There are ... days / ... weeks till the next paycheck." << endl << endl;
-
-    // musze pobraæ dzisiejsz¹ datê
-
-    //dateMethods.getDate();
-
-    //muszê ustawiæ date wyp³aty
-    //i obliczyæ ile dni jest do kolejnej wyp³aty
-
-    cout << "Amount of money to spend in each remaining week - ..." << endl;
-
-
-
-
-    cout << endl << endl;
-    system("pause");
-
+    monthlyExpensesManager.diplayCurrentMonthExpensesPlan(incomes);
 }
 
 
@@ -200,19 +156,6 @@ double BudgetManager::addTransactionsAmount() {
 
     return amount;
 
-}
-
-double BudgetManager::getCurrentMonthIncome() {
-
-    double incomeAmount = 0;
-
-    for(vector <Transactions>::iterator itr = incomes.begin(); itr != incomes.end(); itr++) {
-        if(itr->getItem() == "Salary") {
-            incomeAmount = itr->getAmount();
-        }
-    }
-
-    return incomeAmount;
 }
 
 void BudgetManager::setTransactionTag(TransactionTag newTag) {

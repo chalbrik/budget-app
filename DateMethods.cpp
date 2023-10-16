@@ -27,11 +27,16 @@ int DateMethods::getDate(MonthTag monthTag, DayTag dayTag) {
         month = HelpMethods::convertIntToString(tmLocal->tm_mon + 1);
     }
 
+
+
     if(monthTag == CURRENT && dayTag == TODAY) {
         day = HelpMethods::convertIntToString(tmLocal->tm_mday);
     } else if((monthTag == CURRENT || monthTag == PREVIOUS) && dayTag == FIRST) {
         day = "01";
-    } else if(monthTag == PREVIOUS && dayTag == LAST) {
+    }
+
+
+    if(monthTag == PREVIOUS && dayTag == LAST) {
 
         if(tmLocal->tm_mon == 0) {
             tmLocal->tm_mon = 12;
@@ -45,6 +50,14 @@ int DateMethods::getDate(MonthTag monthTag, DayTag dayTag) {
         year = HelpMethods::convertIntToString(tmLocal->tm_year + 1900);
         month =  month = HelpMethods::convertIntToString(tmLocal->tm_mon + 1);
         day = HelpMethods::convertIntToString(tmLocal->tm_mday);
+    }
+
+
+
+    if(monthTag == NEXT && dayTag == PAYCHECK) {
+        year = HelpMethods::convertIntToString(tmLocal->tm_year + 1900);
+        month = HelpMethods::convertIntToString(tmLocal->tm_mon + 2);
+        day = "";
     }
 
     if(month.size() == 1) {

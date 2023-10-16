@@ -13,6 +13,8 @@ class DateMethods {
 
 public:
 
+    DateMethods(){};
+
     int getDate(MonthTag monthTag, DayTag dayTag);
     int getFirstDayOfCurrentMonthDate();
     int getSpecificDateFromUser();
